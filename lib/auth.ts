@@ -37,3 +37,17 @@ export async function fazerLogout() {
     throw new Error(error.message)
   }
 }
+
+
+
+export async function recuperarSenha(email: string) {
+  const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/update-password`,
+  })
+
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  return data
+}
